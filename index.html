@@ -37,15 +37,7 @@
       <p id="currentDay" class="lead"></p>
     </header>
 
-    <div class="container">
-      <div class="row">
-        <div class="col-sm-1 border border-2">1:00</div>
-
-        <input class="col-sm-10" placeholder="activity" />
-
-        <button id="save" class="col-sm-1 border border-2">save</button>
-      </div>
-    </div>
+    <div class="container"></div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
@@ -53,14 +45,58 @@
 
     <script type="text/javascript">
       $("#currentDay").text(moment().format("MMM Do YY"));
+
+      var timeOfDay = [
+        "9",
+        "10",
+        "11",
+        "12",
+        "13",
+        "14",
+        "15",
+        "16",
+        "17",
+        "18",
+        "19",
+      ];
+
+      $.each(timeOfDay, function (i) {
+        var hour = timeOfDay[i];
+        var HourColumn = $("<div>");
+        HourColumn.addClass("col-1 hour");
+        HourColumn.text(hour);
+        HourColumn.attr("id", [i] + "time");
+        var activityColumn = $("<input>");
+        activityColumn.addClass("col-10 activity");
+        activityColumn.attr("id", [i] + "activity");
+        activityColumn.attr("placeholder", "Enter event here");
+        activityColumn.attr("value", "");
+        activityColumn.attr("type", "text");
+        var saveColum = $("<button>");
+        saveColum.addClass("col-1 saveBtn");
+        saveColum.attr("id", [i] + "save");
+        saveColum.text("Save");
+        var newRow = $("<div>");
+        newRow.addClass("row");
+        newRow.append(HourColumn, activityColumn, saveColum);
+        $(".container").append(newRow);
+      });
+
+      var save1 = $("#1save");
+      var date1 = $("#1time");
+      var activity1 = $("#1activity");
+
+      save1.on("click", function () {
+        localStorage.setItem(date1.text(), String(activity1.val()));
+      });
     </script>
   </body>
 
-  //
+  <!-- // -->
   <!-- import date on top from external source
 
   //
-  click events for activity and save button
+  click events for activity and save butt
   //
   color cordination for past present and futer
   //
