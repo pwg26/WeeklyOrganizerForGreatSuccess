@@ -71,19 +71,7 @@
         $(".container").append(newRow);
       });
 
-      // var storedActivities;
-
-      // function that stores activity in local storad and sets it to planers corrasponding
-      // $.each(timeOfDay, function (x) {
-      //   $("#" + [x] + "save").on("click", function () {
-      //     localStorage.setItem(
-      //       $("#" + [x] + "time").text(),
-      //       $("#" + [x] + "activity").val()
-      //     );
-      //   });
-      // });
-
-      // if(activityColumn.data)
+      // function that adds event listeners to save buttons and stores the activities as keys in local storage
 
       $(".saveBtn").on("click", function (event) {
         var btnId = $(this).attr("id");
@@ -92,6 +80,7 @@
         localStorage.setItem(Keynumber + "key", activityValue);
       });
 
+      // function that iterates through local storage and adds keys with activity values to corrasponding activity row
       for (x = 0; x < 8; x++) {
         var storedKey = localStorage.getItem([x] + "key");
         if (!storedKey) {
@@ -101,7 +90,7 @@
         }
       }
 
-      // function that holds the set time of the activity to the current hour and changed
+      // function that holds the set time of the activity to the current hour and changes backround accordingly to past present or future
       var currentHour = moment().format("H");
 
       for (x = 0; x < 8; x++) {
@@ -120,13 +109,15 @@
     </script>
   </body>
 
+  //
   <!-- // -->
+  //
   <!-- import date on top from external source
 
-  //
-  click events for activity and save butt
-  //
-  color cordination for past present and futer
-  //
-  local storage of activity by save buttion -->
+  // //
+  // click events for activity and save butt
+  // //
+  // color cordination for past present and futer
+  // //
+  // local storage of activity by save buttion -->
 </html>
