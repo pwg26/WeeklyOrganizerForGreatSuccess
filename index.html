@@ -53,13 +53,14 @@
         var HourColumn = $("<div>");
         HourColumn.addClass("col-1 hour");
         HourColumn.text(hour);
-        HourColumn.attr("id", [i] + "time");
+        HourColumn.attr("id", [i] + "description");
         var activityColumn = $("<input>");
-        activityColumn.addClass("col-10 description");
+        activityColumn.addClass("col-10 activity");
         activityColumn.attr("id", [i] + "activity");
         activityColumn.attr("placeholder", "Enter event here");
         activityColumn.attr("value", "");
         activityColumn.attr("type", "text");
+        activityColumn.attr("data-hour", hour);
         var saveColum = $("<button>");
         saveColum.addClass("col-1 saveBtn");
         saveColum.attr("id", [i] + "save");
@@ -82,6 +83,8 @@
       //   });
       // });
 
+      // if(activityColumn.data)
+
       $(".saveBtn").on("click", function (event) {
         var btnId = $(this).attr("id");
         var Keynumber = btnId.charAt(0);
@@ -98,15 +101,22 @@
         }
       }
 
-      // for (x = 9; x < 17; x++) {
-      //   if (localStorage.getItem(x) != $("#" + x + "activity").val()) {
-      //     continue;
-      //   } else {
-      //     document.getElementById(
-      //       "#" + x + "activity"
-      //     ).value = localStorage.getItem(x);
-      //   }
-      // }
+      // function that holds the set time of the activity to the current hour and changed
+      var currentHour = moment().format("H");
+
+      for (x = 0; x < 8; x++) {
+        var activity = $("#" + [x] + "activity");
+
+        var setTime = event.data("hour");
+
+        if (setTime == currentHour) {
+          event.addClass("present");
+        } else if (setTime > currentHour) {
+          event.addClass("future");
+        } else {
+          event.addClass("past");
+        }
+      }
     </script>
   </body>
 
