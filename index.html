@@ -46,16 +46,7 @@
     <script type="text/javascript">
       $("#currentDay").text(moment().format("MMM Do YY"));
 
-      var timeOfDay = [
-        "9:00",
-        "10:00",
-        "1100",
-        "12:00",
-        "13:00",
-        "14:00",
-        "15:00",
-        "16:00",
-      ];
+      var timeOfDay = ["9", "10", "11", "12", "13", "14", "15", "16"];
 
       $.each(timeOfDay, function (i) {
         var hour = timeOfDay[i];
@@ -92,7 +83,8 @@
       //   });
       // });
 
-      //  function that sets event listener to the save buttons,
+      // if(activityColumn.data)
+
       $(".saveBtn").on("click", function (event) {
         var btnId = $(this).attr("id");
         var Keynumber = btnId.charAt(0);
@@ -100,7 +92,6 @@
         localStorage.setItem(Keynumber + "key", activityValue);
       });
 
-      // function that appends the logs the user imput activities values from local storage to the activity column
       for (x = 0; x < 8; x++) {
         var storedKey = localStorage.getItem([x] + "key");
         if (!storedKey) {
@@ -110,19 +101,20 @@
         }
       }
 
-      // function that compares the set time value stored in the data of each activity coloums to the current time and changes the coloums backround color accordingling
+      // function that holds the set time of the activity to the current hour and changed
+      var currentHour = moment().format("H");
 
       for (x = 0; x < 8; x++) {
         var activity = $("#" + [x] + "activity");
 
-        var setTime = event.data("hour");
+        var setTime = activity.data("hour");
 
         if (setTime == currentHour) {
-          event.addClass("present");
+          activity.addClass("present");
         } else if (setTime > currentHour) {
-          event.addClass("future");
+          activity.addClass("future");
         } else {
-          event.addClass("past");
+          activity.addClass("past");
         }
       }
     </script>
