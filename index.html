@@ -46,19 +46,7 @@
     <script type="text/javascript">
       $("#currentDay").text(moment().format("MMM Do YY"));
 
-      var timeOfDay = [
-        "9",
-        "10",
-        "11",
-        "12",
-        "13",
-        "14",
-        "15",
-        "16",
-        "17",
-        "18",
-        "19",
-      ];
+      var timeOfDay = ["9", "10", "11", "12", "13", "14", "15", "16"];
 
       $.each(timeOfDay, function (i) {
         var hour = timeOfDay[i];
@@ -67,7 +55,7 @@
         HourColumn.text(hour);
         HourColumn.attr("id", [i] + "time");
         var activityColumn = $("<input>");
-        activityColumn.addClass("col-10 activity");
+        activityColumn.addClass("col-10 description");
         activityColumn.attr("id", [i] + "activity");
         activityColumn.attr("placeholder", "Enter event here");
         activityColumn.attr("value", "");
@@ -82,13 +70,43 @@
         $(".container").append(newRow);
       });
 
-      var save1 = $("#1save");
-      var date1 = $("#1time");
-      var activity1 = $("#1activity");
+      // var storedActivities;
 
-      save1.on("click", function () {
-        localStorage.setItem(date1.text(), String(activity1.val()));
+      // function that stores activity in local storad and sets it to planers corrasponding
+      // $.each(timeOfDay, function (x) {
+      //   $("#" + [x] + "save").on("click", function () {
+      //     localStorage.setItem(
+      //       $("#" + [x] + "time").text(),
+      //       $("#" + [x] + "activity").val()
+      //     );
+      //   });
+      // });
+
+      $(".saveBtn").on("click", function (event) {
+        var btnId = $(this).attr("id");
+        var Keynumber = btnId.charAt(0);
+        var activityValue = $("#" + Keynumber + "activity").val();
+        localStorage.setItem(Keynumber + "key", activityValue);
       });
+
+      for (x = 0; x < 8; x++) {
+        var storedKey = localStorage.getItem([x] + "key");
+        if (!storedKey) {
+          continue;
+        } else {
+          $("#" + [x] + "activity").val(storedKey);
+        }
+      }
+
+      // for (x = 9; x < 17; x++) {
+      //   if (localStorage.getItem(x) != $("#" + x + "activity").val()) {
+      //     continue;
+      //   } else {
+      //     document.getElementById(
+      //       "#" + x + "activity"
+      //     ).value = localStorage.getItem(x);
+      //   }
+      // }
     </script>
   </body>
 
